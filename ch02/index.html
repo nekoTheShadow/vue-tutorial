@@ -2,7 +2,7 @@
 <title>はじめてのVue.js</title>
 <script src="https://cdn.jsdelivr.net/npm/vue@2.6.11"></script>
 
-<div id="app">
+<div id="app" :style="errorMessageStyle">
     <p>{{items[0].name}}: {{items[0].price}} x {{items[0].quantity}}</p>
     <p>小計: {{totalPrice|numberWithDelimiter}}円</p>
     <p>合計(税込): {{totalPriceWithTax|numberWithDelimiter}}</p>
