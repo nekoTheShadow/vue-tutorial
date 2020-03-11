@@ -47,6 +47,14 @@ var vm = new Vue({
                 color: this.canBuy ? '' : 'red'
             }
         }
+    },
+    methods: {
+        doBuy: function() {
+            alert(this.totalPriceWithTax + '円のお買い上げ!');
+            this.items.forEach(function(item) {
+                item.quantity = 0;
+            })
+        }
     }
 });
 
