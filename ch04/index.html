@@ -17,16 +17,35 @@
     <div class="loading" v-if="loading">読み込み中…</div>
     <div class="error" v-if="error">{{error}}</div>
     <div v-for="user in users" :key="user.id">
+      <router-link :to="{path: '/users/' + user.id}">{{user.name}}</router-link>
+    </div>
+  </div>
+</script>
+
+<script type="text/x-template" id="user-detail">
+  <div>
+    <div class="loading" v-if="loading">読み込み中…</div>
+    <div class="error" v-if="error">{{error}}</div>
+    <div v-if="user">
       <h2>{{user.name}}</h2>
+      <h2>{{user.description}}</h2>
     </div>
   </div>
 </script>
 
 <script>
   var userData = [
-    {id: 1, name: 'Takuya Tejima'},
-      {id: 2, name: 'Yohei Noda'}
+    {id: 1, name: 'Takuya Tejima', description: '東南アジアで働くエンジニアです。'},
+    {id: 2, name: 'Yohei Noda', description: 'アウトドア・フットサルが趣味のエンジニアです。'}
   ];
+  var getUser = function(userId, callback) {
+    setTimeout(function(){
+      var filteredUsers = userData.filter(function(user){
+        return user.id === parseInt(userId, 10);
+      })
+      callback(null, filteredUsers && filteredUsers[0]);
+    }, 1000);
+  }
   var getUsers = function(callback) {
     setTimeout(function(){
       callback(null, [
@@ -65,6 +84,35 @@
       }
     }
   };
+  var UserDetail = {
+    template: '#user-detail',
+    data: function() {
+      return {
+        loading: false,
+        user: null,
+        error: null
+      }
+    },
+    created: function() {
+      this.fetchData();
+    },
+    watch: {
+      '$route': 'fetchData'
+    },
+    methods: {
+      fetchData: function() {
+        this.loading = true;
+        getUser(this.$route.params.userId, (function(err, user){
+          this.loading = false;
+          if (err) {
+            this.error = err.toString();
+          } else {
+            this.user = user;
+          }
+        }).bind(this));
+      }
+    }
+  };
 
   var router = new VueRouter({
     routes: [
@@ -77,6 +125,10 @@
       {
         path: '/users',
         component: UserList
+      },
+      {
+        path: '/users/:userId',
+        component: UserDetail
       }
     ]
   });
