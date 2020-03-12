@@ -12,5 +12,30 @@
 <script src="https://unpkg.com/vue/dist/vue.js"></script>
 <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
 
-<script type="text/x-template" id="user-list"></script>
-<script></script>
+
+<script type="text/x-template" id="user-list">
+  <div>ユーザー一覧ページ</div>
+</script>
+
+<script>
+  var UserList = {
+    template: '#user-list'
+  };
+  var router = new VueRoter({
+    routes: [
+      {
+        path: '/top',
+        component: {
+          template: '<div>トップページです。</div>'
+        }
+      },
+      {
+        path: '/users',
+        component: UserList
+      }
+    ]
+  });
+  var app = new Vue({
+    router: router
+  }).$mount('#app');
+</script>
