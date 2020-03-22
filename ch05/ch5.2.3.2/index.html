@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<title>Vue app</title>
+<script src="https://unpkg.com/vue/dist/vue.js"></script>
+
+<div id="app">
+  <todo-list :todos="todos">
+    <li slot-scope="{todo}" v-if="todo.isCompleted">{{todo.text}}</li>
+  </todo-list>
+</div>
+
+<script src="./app.js"></script>
