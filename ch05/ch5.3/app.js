@@ -1,13 +1,20 @@
 Vue.directive('fallback-image', {
-  bind: function(el) {
-    el.addEventListener('error', function(el, binding){
-      console.log('bind', binding)
-      el.src = "https://dummyimage.com/400x400/000/fff.png&text=no+image";
+  bind: function(el, binding) {
+    console.log('bind', binding);
+    var once = binding.modifiers.once;
+    el.addEventListener('error', function onError(){
+      el.src = binding.value;
+      if (once) {
+        el.removeEventListener('error', onError);
+      }
     })
   },
 
   update: function(el, binding) {
     console.log('update', binding);
+    if (binding.oldVelue !== binding.value && binding.oldVelue === el.src) {
+      el.src = binding.value;
+    }
   }
 })
 
@@ -15,7 +22,8 @@ var vm = new Vue({
   el: '#app',
   data: function() {
     return {
-      altText: 'logo'
+      altText: 'logo',
+      noImageURL: "https://dummyimage.com/400x400/000/fff.png&text=no+image"
     }
   }
 })
