@@ -15,6 +15,15 @@ const store = new Vuex.Store({
     ],
     nextTaskId: 3,
     nextLabelId: 4,
+    filter: null
+  },
+  getters: {
+    filteredTasks(state) {
+      if (!state.filter) {
+        return state.tasks;
+      }
+      return state.tasks.filter(task => task.labelIds.indexOf(state.filter) >= 0);
+    }
   },
   mutations: {
     addTask(state, {name, labelIds}) {
@@ -28,6 +37,9 @@ const store = new Vuex.Store({
     addLabel(state, {text}) {
       state.labels.push({id: state.nextLabelId, text});
       state.nextLabelId++;
+    },
+    changeFilter(state, {filter}) {
+      state.filter = filter;
     }
   }
 });
