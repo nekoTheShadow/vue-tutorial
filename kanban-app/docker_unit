@@ -1,0 +1,19 @@
+FROM centos:centos8
+
+RUN mkdir /app \
+ && yum update -y \
+ && curl -sL https://rpm.nodesource.com/setup_12.x | bash - \
+ && yum install -y nodejs bzip2 fontconfig 
+
+WORKDIR /app
+
+# `package.json` と `package-lock.json` （あれば）を両方コピーする
+COPY package*.json ./
+
+# プロジェクトの依存ライブラリをインストールする
+RUN npm install
+
+# カレントワーキングディレクトリ(つまり 'app' フォルダ)にプロジェクトのファイルやフォルダをコピーする
+COPY . .
+
+CMD [ "npm", "run", "unit" ]
