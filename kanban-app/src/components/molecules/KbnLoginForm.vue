@@ -110,7 +110,7 @@ export default {
     },
 
     handleClick (ev) {
-      if (this.disabledLoginAction) {
+      if (this.disableLoginAction) {
         return
       }
 
