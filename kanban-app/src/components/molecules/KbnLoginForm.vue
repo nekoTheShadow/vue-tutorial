@@ -31,7 +31,7 @@
 
     <div class="form-actions">
       <KbnButton
-        :disabled="disabledLoginAction"
+        :disabled="disableLoginAction"
         @click="handleClick">ログイン</KbnButton>
       <p
         v-if="progress"

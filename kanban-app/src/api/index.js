@@ -4,6 +4,6 @@ import Task from './task'
 
 export {
   Auth,
-  List, 
+  List,
   Task
 }
