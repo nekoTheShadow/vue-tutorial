@@ -27,7 +27,10 @@ describe('loginアクション', () => {
       const action = mockLoginAction(login)
       commit = sinon.spy()
       future = action({ commit }, { address, password })
-      Vue.nextTick(done)
+
+      // https://gihyo.jp/book/2018/978-4-297-10091-9/support#supportApology
+      // Vue.nextTick(done)
+      future.then(() => done())
     })
 
     it('成功となること', () => {
