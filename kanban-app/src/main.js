@@ -11,6 +11,12 @@ Vue.config.productionTip = process.env.NODE_ENV === 'production'
 
 Vue.component(ErrorBoundary.name, ErrorBoundary)
 
+Vue.config.errorHandler = (err, vm, info) => {
+  console.error('errorHandler err:', err)
+  console.error('errorHandler vm:', vm)
+  console.error('errorHandler info:', inf)
+}
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
