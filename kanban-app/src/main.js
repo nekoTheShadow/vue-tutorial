@@ -9,6 +9,9 @@ import store from './store'
 
 Vue.config.productionTip = process.env.NODE_ENV === 'production'
 
+Vue.config.performance = process.env.NODE_ENV === 'development'
+
+
 Vue.component(ErrorBoundary.name, ErrorBoundary)
 
 Vue.config.errorHandler = (err, vm, info) => {
