@@ -1,6 +1,15 @@
-FROM node:lts-alpine
+FROM centos:centos8
 
-# カレントワーキングディレクトリとして 'app' フォルダを指定する
+# 1. node.jsをインストール
+# 2. phantom.jsとseleniumに関連するモジュールをインストール
+# 3. chromeをインストール
+RUN mkdir /app \
+ && yum update -y \
+ && curl -sL https://rpm.nodesource.com/setup_12.x | bash - \
+ && yum install -y nodejs bzip2 fontconfig java-1.8.0-openjdk \
+ && curl -O https://dl.google.com/linux/direct/google-chrome-stable_current_x86_64.rpm \
+ && dnf localinstall -y google-chrome-stable_current_x86_64.rpm
+
 WORKDIR /app
 
 # `package.json` と `package-lock.json` （あれば）を両方コピーする
@@ -12,5 +21,4 @@ RUN npm install
 # カレントワーキングディレクトリ(つまり 'app' フォルダ)にプロジェクトのファイルやフォルダをコピーする
 COPY . .
 
-EXPOSE 8080
 CMD [ "npm", "run", "dev" ]

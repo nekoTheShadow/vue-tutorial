@@ -1,5 +1,8 @@
 FROM centos:centos8
 
+# 1. node.jsをインストール
+# 2. phantom.jsとseleniumに関連するモジュールをインストール
+# 3. chromeをインストール
 RUN mkdir /app \
  && yum update -y \
  && curl -sL https://rpm.nodesource.com/setup_12.x | bash - \

@@ -6,7 +6,6 @@ set SUBCMD=
 set /p SUBCMD="Sub Command ? ---> "
 
 set t=%time: =0%
-
 set yyyy=%date:~0,4%
 set mm=%date:~5,2%
 set dd=%date:~8,2%
@@ -21,3 +20,4 @@ docker run -it ^
            --rm ^
            -p 8080:8080 ^
            %imagename%
+docker rmi %imagename%

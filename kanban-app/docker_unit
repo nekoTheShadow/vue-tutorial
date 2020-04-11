@@ -1,9 +1,14 @@
 FROM centos:centos8
 
+# 1. node.jsをインストール
+# 2. phantom.jsとseleniumに関連するモジュールをインストール
+# 3. chromeをインストール
 RUN mkdir /app \
  && yum update -y \
  && curl -sL https://rpm.nodesource.com/setup_12.x | bash - \
- && yum install -y nodejs bzip2 fontconfig 
+ && yum install -y nodejs bzip2 fontconfig java-1.8.0-openjdk \
+ && curl -O https://dl.google.com/linux/direct/google-chrome-stable_current_x86_64.rpm \
+ && dnf localinstall -y google-chrome-stable_current_x86_64.rpm
 
 WORKDIR /app
 
