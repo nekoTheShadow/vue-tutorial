@@ -5,15 +5,15 @@ import KbnTaskDetailModal from '@/components/templates/KbnTaskDetailModal.vue'
 export default [{
   path: '/',
   component: KbnBoardView,
-  meta: {requireAuth: true}
+  meta: {requiresAuth: true}
 }, {
   path: '/login',
   component: KbnLoginView,
-  meta: {requireAuth: true}
+  meta: {requiresAuth: false}
 }, {
   path: '/task/:id',
   component: KbnTaskDetailModal,
-  meta: {requireAuth: true}
+  meta: {requiresAuth: true}
 }, {
   path: '*',
   redirect: '/'
